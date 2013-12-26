@@ -1,5 +1,8 @@
 // Merge code into master and tag it
 // Programatically completes the steps listed in (mags wiki branching guide)[http://wiki.magazines.com/display/DEV/Development+And+Branching+Guide#DevelopmentAndBranchingGuide-ProductionReleases]
+// *Params*:
+//   `ver`: the branch name to merge into master
+//   `tagMesg` : tag message
 var execSync = require('exec-sync');
 
 function stash(mesg){
@@ -33,6 +36,10 @@ function gitCheckout(branch){
   return retVal;
 }
 
+// stashDiff()
+// Stashes any existing changes
+// If third parameter `add` is true, all changes are
+// added `git add .` before stashing
 function stashDiff(grunt, stashMesg, add){
   var changesToStash;
 
@@ -47,6 +54,7 @@ function stashDiff(grunt, stashMesg, add){
     stash(stashMesg);
     grunt.log.writeln('Stashing changes');
   }
+
   // Re-check to make sure we got everything
   changesToStash = gitStatus();
   if(changesToStash){
