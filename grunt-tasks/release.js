@@ -40,9 +40,10 @@ function gitTag(ver, mesg){
 }
 
 function gitCheckout(branch){
-  var retVal = false;
+  var retVal = false,
+      shResp;
   
-  execSync('git checkout -q '+branch);
+  shResp = execSync('git checkout -q '+branch);
 
   if(gitBranch() === branch){
     retVal = true;
