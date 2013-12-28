@@ -42,7 +42,13 @@ function gitPush(){
 }
 
 function gitTag(ver, mesg){
+  try{
   var shResp = execSync('git tag ' + ver + ' -m ' + mesg);
+  }
+  catch(e){
+    console.log(e);
+    console.log(shResp);
+  }
 }
 
 function gitCheckout(branch){
