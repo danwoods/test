@@ -130,7 +130,7 @@ module.exports = function(grunt){
     stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
 
     // Checkout master
-    grunt.log.writeln('Checking out: ' + master);
+    grunt.log.writeln('Checking out master');
     gitCheckout('master');
     grunt.log.writeln('Switched to master');
 
