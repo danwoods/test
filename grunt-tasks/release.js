@@ -45,17 +45,9 @@ function gitTag(ver, mesg){
 }
 
 function gitCheckout(branch){
-  var retVal = false,
-      respCode;
-  
-  respCode = sh.exec('git checkout -q '+branch).code;
-  console.log(respCode);
+  var err = sh.exec('git checkout -q '+branch).code;
 
-  if(gitBranch() === branch){
-    retVal = true;
-  }
-
-  return retVal;
+  return !Boolean(err);
 }
 
 // stashDiff()
