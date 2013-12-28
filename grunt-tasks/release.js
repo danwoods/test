@@ -14,7 +14,7 @@ function stash(mesg){
 
 // Get status
 function gitStatus(){
-  return sh.exec('git status --porcelain').output;
+  return sh.exec('git status --porcelain', {silent:true}).output;
 }
 
 // Get current branch name
@@ -63,7 +63,7 @@ function stashDiff(grunt, stashMesg, add){
   if(changesToStash){
     if(add){
       grunt.log.writeln('Adding changes');
-      execSync('git add .');
+      sh.exec('git add .');
     }
     stash(stashMesg);
     grunt.log.writeln('Stashing changes');
@@ -105,6 +105,7 @@ module.exports = function(grunt){
         tagMesg = grunt.option('mesg') || opts.mesg;
 
     // Stash any current changes
+    grunt.log.writeln('Stashing any current changes');
     stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
 
     // Checkout branch to merge
