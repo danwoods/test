@@ -10,64 +10,46 @@ function stash(mesg){
   if(!mesg){
     mesg = '';
   }
-  execSync('git stash save "' + mesg + '"');
+  sh.exec('git stash save "' + mesg + '"');
 }
 
 // Get status
 function gitStatus(){
-  return execSync('git status --porcelain');
+  return sh.exec('git status --porcelain').output;
 }
 
 // Get current branch name
 function gitBranch(){
-  return execSync('git rev-parse --abbrev-ref HEAD');
+  return sh.exec('git rev-parse --abbrev-ref HEAD').output;
 }
 
 // Merge `branch` into current branch
 function gitMerge(branch){
-  execSync('git merge ' + branch);
+  sh.exec('git merge ' + branch);
 }
 
 function gitPull(){
   sh.exec('git pull');
-/*
-  try{
-    var shResp = execSync.exec('git pull');
-  }
-  catch(e){
-    console.log(e);
-    console.log(shResp);
-  }
-  */
 }
 
 function gitPush(tags){
   if(tags){
-    execSync('git push --tags');
+    sh.exec('git push --tags');
   }
   else{
-    execSync('git push');
+    sh.exec('git push');
   }
 }
 
 function gitTag(ver, mesg){
   sh.exec('git tag ' + ver + ' -m ' + mesg);
-  /*
-  try{
-  var shResp = execSync.exec('git tag ' + ver + ' -m ' + mesg);
-  }
-  catch(e){
-    console.log(e);
-    console.log(shResp);
-  }
-  */
 }
 
 function gitCheckout(branch){
   var retVal = false,
       shResp;
   
-  shResp = execSync('git checkout -q '+branch);
+  sh.exec('git checkout -q '+branch);
 
   if(gitBranch() === branch){
     retVal = true;
