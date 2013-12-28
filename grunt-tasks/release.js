@@ -112,6 +112,7 @@ module.exports = function(grunt){
     // Checkout branch to merge
     grunt.log.writeln('Checking out: ' + branchToMerge);
     gitCheckout(branchToMerge);
+    grunt.log.writeln('Switched to branch: ' + branchToMerge);
 
     // Pull any changes
     grunt.log.writeln('Pulling remote changes to: ' + branchToMerge);
