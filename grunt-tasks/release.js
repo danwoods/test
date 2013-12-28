@@ -80,7 +80,7 @@ function stashDiff(grunt, stashMesg, add){
   return true;
 }
 
-function getVersionFromBranch(branchName, regex){
+function getVersionFromBranchName(branchName, regex){
   var ver = branchName,
       re;
 
