@@ -48,7 +48,7 @@ function gitCheckout(branch){
   var retVal = false,
       shResp;
   
-  sh.exec('git checkout -q '+branch);
+  sh.exec('git checkout -q '+branch, {silent: true});
 
   if(gitBranch() === branch){
     retVal = true;
@@ -117,7 +117,6 @@ module.exports = function(grunt){
     // Checkout branch to merge
     grunt.log.writeln('Checking out: ' + branchToMerge);
     gitCheckout(branchToMerge);
-    grunt.log.writeln('Switched to branch: ' + branchToMerge);
 
     // Pull any changes
     grunt.log.writeln('Pulling remote changes to: ' + branchToMerge);
@@ -131,7 +130,6 @@ module.exports = function(grunt){
     // Checkout master
     grunt.log.writeln('Checking out master');
     gitCheckout('master');
-    grunt.log.writeln('Switched to master');
 
     // Pull master
     grunt.log.writeln('Pulling remote changes to master');
