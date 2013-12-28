@@ -114,6 +114,7 @@ module.exports = function(grunt){
     gitCheckout(branchToMerge);
 
     // Pull any changes
+    grunt.log.writeln('Pulling remote changes to: ' + branchToMerge);
     gitPull();
 
     // Stash any merge conflicts with pulled changes.
