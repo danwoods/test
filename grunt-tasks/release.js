@@ -46,9 +46,10 @@ function gitTag(ver, mesg){
 
 function gitCheckout(branch){
   var retVal = false,
-      shResp;
+      respCode;
   
-  sh.exec('git checkout -q '+branch);
+  respCode = sh.exec('git checkout -q '+branch).code;
+  console.log(code);
 
   if(gitBranch() === branch){
     retVal = true;
