@@ -143,8 +143,8 @@ module.exports = function(grunt){
     gitMerge(branchToMerge);
 
     // Tag
-    grunt.log.writeln('Tagging master: ' + ver);
-    gitTag(ver, tagMesg);
+    grunt.log.writeln('Tagging master: ' + version);
+    gitTag(version, tagMesg);
     //
     // Push tags
     //
