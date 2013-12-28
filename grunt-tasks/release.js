@@ -49,7 +49,7 @@ function gitCheckout(branch){
       respCode;
   
   respCode = sh.exec('git checkout -q '+branch).code;
-  console.log(code);
+  console.log(respCode);
 
   if(gitBranch() === branch){
     retVal = true;
