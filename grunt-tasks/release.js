@@ -19,7 +19,7 @@ function gitStatus(){
 
 // Get current branch name
 function gitBranch(){
-  return sh.exec('git rev-parse --abbrev-ref HEAD').output;
+  return sh.exec('git rev-parse --abbrev-ref HEAD', {silent:true}).output;
 }
 
 // Merge `branch` into current branch
@@ -48,7 +48,7 @@ function gitCheckout(branch){
   var retVal = false,
       shResp;
   
-  sh.exec('git checkout -q '+branch, {silent: true});
+  sh.exec('git checkout -q '+branch);
 
   if(gitBranch() === branch){
     retVal = true;
