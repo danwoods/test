@@ -26,6 +26,7 @@
     "exec-sync": "~0.1.6",
     "request": "~2.30.0",
     "zombie": "~2.0.0-alpha24",
-    "prompt": "~0.2.12"
+    "prompt": "~0.2.12",
+    "shelljs": "~0.2.6"
   }
 }

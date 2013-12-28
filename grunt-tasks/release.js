@@ -4,6 +4,7 @@
 //   `ver`: the branch name to merge into master
 //   `tagMesg` : tag message
 var execSync = require('exec-sync');
+var sh = require('shelljs');
 
 function stash(mesg){
   if(!mesg){
@@ -28,6 +29,8 @@ function gitMerge(branch){
 }
 
 function gitPull(){
+  sh.exec('git pull');
+/*
   try{
     var shResp = execSync.exec('git pull');
   }
@@ -35,6 +38,7 @@ function gitPull(){
     console.log(e);
     console.log(shResp);
   }
+  */
 }
 
 function gitPush(tags){
@@ -47,6 +51,8 @@ function gitPush(tags){
 }
 
 function gitTag(ver, mesg){
+  sh.exec('git tag ' + ver + ' -m ' + mesg);
+  /*
   try{
   var shResp = execSync.exec('git tag ' + ver + ' -m ' + mesg);
   }
@@ -54,6 +60,7 @@ function gitTag(ver, mesg){
     console.log(e);
     console.log(shResp);
   }
+  */
 }
 
 function gitCheckout(branch){
