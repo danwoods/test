@@ -109,6 +109,7 @@ module.exports = function(grunt){
     stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
 
     // Checkout branch to merge
+    grunt.log.writeln('Checking out: ' + branchToMerge);
     gitCheckout(branchToMerge);
 
     // Pull any changes
