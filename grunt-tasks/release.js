@@ -12,16 +12,31 @@ function stash(mesg){
   execSync('git stash save "' + mesg + '"');
 }
 
+// Get status
 function gitStatus(){
   return execSync('git status --porcelain');
 }
 
+// Get current branch name
 function gitBranch(){
   return execSync('git rev-parse --abbrev-ref HEAD');
 }
 
+// Merge `branch` into current branch
+function gitMerge(branch){
+  execSync('git merge ' + branch);
+}
+
 function gitPull(){
   execSync('git pull');
+}
+
+function gitPush(){
+  execSync('git push');
+}
+
+function gitTag(ver, mesg){
+  execSync('git tag "' + ver + '" -m ' + mesg);
 }
 
 function gitCheckout(branch){
@@ -65,34 +80,66 @@ function stashDiff(grunt, stashMesg, add){
   return true;
 }
 
+function getVersionFromBranch(branchName, regex){
+  var ver = branchName,
+      re;
+
+  if(regex){
+    re = new RegExp(regex);
+    if(re.test(branchName)){
+      ver = re.exec(branchName)[0];
+    }
+  }
+
+  return ver;
+}
+
 module.exports = function(grunt){
   grunt.registerTask('release', function(){
 
-  var stashSucc,
-      branchToMerge,
-      curBranch = gitBranch();
+    var opts = this.options({}, true),
+        stashSucc,
+        branchToMerge = grunt.options('ver'),
+        curBranch = gitBranch(),
+        gitRegex = grunt.options('gitRegex') || opts.gitRegex,
+        version = getVersionFromBranchName(branchToMerge, gitRegex),
+        tagMesg = grunt.options('mesg') || opts.mesg;
 
-  // Stash any current changes
-  stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout master', true);
+    // Stash any current changes
+    stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
 
-  // Checkout master
-  gitCheckout('master');
+    // Checkout branch to merge
+    gitCheckout(branchToMerge);
 
-  // Pull master
-  gitPull();
+    // Pull any changes
+    gitPull();
 
-  // Stash any differences between user's master and remote master
-  stashSucc = stashDiff(grunt, 'Stashing changes in user\'s master to merge '+branchToMerge+' into master', true);
+    // Stash any merge conflicts with pulled changes.
+    // Add and stash if necessary.
+    stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
 
-  // Merge branch into master
-  //
-  // Tag
-  //
-  // Push tags
-  //
-  // Push
-  //
-  // Alert user if git status returns anything
+    // Checkout master
+    gitCheckout('master');
+
+    // Pull master
+    gitPull();
+
+    // Stash any differences between user's master and
+    // remote master. Add and stash if necessary.
+    stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote master', true);
+
+    // Merge branch into master
+    gitMerge(branchToMerge);
+
+    // Tag
+    grunt.log.writeln('Tagging master: ' + ver);
+    gitTag(ver, tagMesg);
+    //
+    // Push tags
+    //
+    // Push
+    //
+    // Alert user if git status returns anything
   
   });
 };
