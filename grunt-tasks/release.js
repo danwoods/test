@@ -28,7 +28,7 @@ function gitMerge(branch){
 }
 
 function gitPull(){
-  execSync('git pull');
+  var shResp = execSync('git pull');
 }
 
 function gitPush(){
