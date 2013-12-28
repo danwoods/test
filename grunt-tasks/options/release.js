@@ -1,5 +1,5 @@
 module.exports = {
   options: {
-    verRegex: "([0-9](.?))+",
+    gitRegex: "([0-9](.?))+",
   }
 };

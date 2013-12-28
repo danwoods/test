@@ -3,7 +3,6 @@
 // *Params*:
 //   `ver`: the branch name to merge into master
 //   `tagMesg` : tag message
-var execSync = require('exec-sync');
 var sh = require('shelljs');
 
 function stash(mesg){
