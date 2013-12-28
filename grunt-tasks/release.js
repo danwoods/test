@@ -110,7 +110,7 @@ module.exports = function(grunt){
     // Checkout branch to merge
     grunt.log.writeln('Checking out: ' + branchToMerge);
     if(!gitCheckout(branchToMerge)){
-      grunt.log.error("Trouble checking out " + branchToMerge);
+      grunt.log.error("Trouble checking out " + branchToMerge + '. Does branch exist?');
       return false;
     }
 
