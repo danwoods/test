@@ -29,7 +29,7 @@ function gitMerge(branch){
 
 function gitPull(){
   try{
-    var shResp = execSync('git pull');
+    var shResp = execSync.exec('git pull');
   }
   catch(e){
     console.log(e);
@@ -48,7 +48,7 @@ function gitPush(tags){
 
 function gitTag(ver, mesg){
   try{
-  var shResp = execSync('git tag ' + ver + ' -m ' + mesg);
+  var shResp = execSync.exec('git tag ' + ver + ' -m ' + mesg);
   }
   catch(e){
     console.log(e);
