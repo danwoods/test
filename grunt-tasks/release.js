@@ -37,8 +37,13 @@ function gitPull(){
   }
 }
 
-function gitPush(){
-  execSync('git push');
+function gitPush(tags){
+  if(tags){
+    execSync('git push --tags');
+  }
+  else{
+    execSync('git push');
+  }
 }
 
 function gitTag(ver, mesg){
@@ -158,8 +163,12 @@ module.exports = function(grunt){
     gitTag(version, tagMesg);
     //
     // Push tags
+    grunt.log.writeln('Pushing tags');
+    gitPush(true);
     //
     // Push
+    grunt.log.writeln('Pushing new master');
+    gitPush();
     //
     // Alert user if git status returns anything
   
