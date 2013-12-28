@@ -119,6 +119,7 @@ module.exports = function(grunt){
 
     // Stash any merge conflicts with pulled changes.
     // Add and stash if necessary.
+    grunt.log.writeln('Stashing any pulled changes');
     stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
 
     // Checkout master
