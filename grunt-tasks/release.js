@@ -130,16 +130,21 @@ module.exports = function(grunt){
     stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
 
     // Checkout master
+    grunt.log.writeln('Checking out: ' + master);
     gitCheckout('master');
+    grunt.log.writeln('Switched to master');
 
     // Pull master
+    grunt.log.writeln('Pulling remote changes to master');
     gitPull();
 
     // Stash any differences between user's master and
     // remote master. Add and stash if necessary.
+    grunt.log.writeln('Stashing any pulled changes');
     stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote master', true);
 
     // Merge branch into master
+    grunt.log.writeln('Merging ' + branchToMerge + ' into master');
     gitMerge(branchToMerge);
 
     // Tag
