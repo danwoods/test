@@ -99,11 +99,11 @@ module.exports = function(grunt){
 
     var opts = this.options({}, true),
         stashSucc,
-        branchToMerge = grunt.options('ver'),
+        branchToMerge = grunt.option('ver'),
         curBranch = gitBranch(),
-        gitRegex = grunt.options('gitRegex') || opts.gitRegex,
+        gitRegex = grunt.option('gitRegex') || opts.gitRegex,
         version = getVersionFromBranchName(branchToMerge, gitRegex),
-        tagMesg = grunt.options('mesg') || opts.mesg;
+        tagMesg = grunt.option('mesg') || opts.mesg;
 
     // Stash any current changes
     stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
