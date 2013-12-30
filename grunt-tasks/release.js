@@ -105,7 +105,7 @@ module.exports = function(grunt){
         tagMesg = grunt.option('mesg') || opts.mesg;
 
     // Stash any current changes
-    if(!gitStatus()){
+    if(gitStatus().length > 0){
       grunt.log.writeln('Stashing any current changes');
       stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
     }
@@ -123,7 +123,7 @@ module.exports = function(grunt){
 
     // Stash any merge conflicts with pulled changes.
     // Add and stash if necessary.
-    if(!gitStatus()){
+    if(gitStatus().length > 0){
       grunt.log.writeln('Stashing any pulled changes');
       stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
     }
@@ -138,7 +138,7 @@ module.exports = function(grunt){
 
     // Stash any differences between user's master and
     // remote master. Add and stash if necessary.
-    if(!gitStatus()){
+    if(gitStatus.length > 0){
       grunt.log.writeln('Stashing any pulled changes');
       stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote master', true);
     }
@@ -160,7 +160,7 @@ module.exports = function(grunt){
     gitPush();
 
     // Alert user if git status returns anything
-    if(!gitStatus()){
+    if(gitStatus.length > 0){
       grunt.log.warn('Unmerged changes remaing after releasing master');
     }
 
