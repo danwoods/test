@@ -154,7 +154,7 @@ module.exports = function(grunt){
     gitPush();
 
     // Alert user if git status returns anything
-    grunt.log.writeln(gittStatus());
+    grunt.log.writeln(gitStatus());
   
   });
 };
