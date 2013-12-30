@@ -121,8 +121,10 @@ module.exports = function(grunt){
 
     // Stash any merge conflicts with pulled changes.
     // Add and stash if necessary.
-    grunt.log.writeln('Stashing any pulled changes');
-    stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
+    if(!gitStatus()){
+      grunt.log.writeln('Stashing any pulled changes');
+      stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
+    }
 
     // Checkout master
     grunt.log.writeln('Checking out master');
@@ -134,8 +136,10 @@ module.exports = function(grunt){
 
     // Stash any differences between user's master and
     // remote master. Add and stash if necessary.
-    grunt.log.writeln('Stashing any pulled changes');
-    stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote master', true);
+    if(!gitStatus()){
+      grunt.log.writeln('Stashing any pulled changes');
+      stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote master', true);
+    }
 
     // Merge branch into master
     grunt.log.writeln('Merging ' + branchToMerge + ' into master');
@@ -144,7 +148,7 @@ module.exports = function(grunt){
     // Tag
     grunt.log.writeln('Tagging master: ' + version);
     gitTag(version, tagMesg);
-    //
+    
     // Push tags
     grunt.log.writeln('Pushing tags');
     gitPush(true);
@@ -154,7 +158,12 @@ module.exports = function(grunt){
     gitPush();
 
     // Alert user if git status returns anything
-    grunt.log.writeln(gitStatus());
+    if(!gitStatus()){
+      grunt.log.warn('Unmerged changes remaing after releasing master');
+    }
+
+    // Display `git status`
+    grunt.log.writeln(sh.exec('git status', {silent:true}).output);
   
   });
 };
