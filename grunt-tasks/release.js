@@ -104,15 +104,11 @@ module.exports = function(grunt){
         version = getVersionFromBranchName(branchToMerge, gitRegex),
         tagMesg = grunt.option('mesg') || opts.mesg;
 
-    console.log('logging git status');
-    console.log('|'+gitStatus()+'|');
-    console.log(typeof gitStatus());
-    console.log(gitStatus().length);
-    console.log('logging git status');
-    return true;
     // Stash any current changes
-    grunt.log.writeln('Stashing any current changes');
-    stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
+    if(!gitStatus()){
+      grunt.log.writeln('Stashing any current changes');
+      stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
+    }
 
     // Checkout branch to merge
     grunt.log.writeln('Checking out: ' + branchToMerge);
