@@ -148,12 +148,13 @@ module.exports = function(grunt){
     // Push tags
     grunt.log.writeln('Pushing tags');
     gitPush(true);
-    //
+
     // Push
     grunt.log.writeln('Pushing new master');
     gitPush();
-    //
+
     // Alert user if git status returns anything
+    grunt.log.writeln(gittStatus());
   
   });
 };
