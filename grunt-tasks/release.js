@@ -104,6 +104,12 @@ module.exports = function(grunt){
         version = getVersionFromBranchName(branchToMerge, gitRegex),
         tagMesg = grunt.option('mesg') || opts.mesg;
 
+    console.log('logging git status');
+    console.log('|'+gitStatus()+'|');
+    console.log(typeof gitStatus());
+    console.log(gitStatus().length);
+    console.log('logging git status');
+    return true;
     // Stash any current changes
     grunt.log.writeln('Stashing any current changes');
     stashSucc = stashDiff(grunt, 'Stashing changes in '+curBranch+' to checkout ' + branchToMerge, true);
@@ -121,10 +127,6 @@ module.exports = function(grunt){
 
     // Stash any merge conflicts with pulled changes.
     // Add and stash if necessary.
-    console.log('logging git status');
-    console.log(gitStatus());
-    console.log(typeof gitStatus());
-    console.log('logging git status');
     if(!gitStatus()){
       grunt.log.writeln('Stashing any pulled changes');
       stashSucc = stashDiff(grunt, 'Stashing conflicts between your local and the remote branch ' + branchToMerge, true);
