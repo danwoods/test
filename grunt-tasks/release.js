@@ -123,6 +123,7 @@ module.exports = function(grunt){
     // Add and stash if necessary.
     console.log('logging git status');
     console.log(gitStatus());
+    console.log(typeof gitStatus());
     console.log('logging git status');
     if(!gitStatus()){
       grunt.log.writeln('Stashing any pulled changes');
