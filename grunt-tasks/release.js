@@ -165,7 +165,7 @@ module.exports = function(grunt){
     }
 
     // Display `git status`
-    grunt.log.writeln(sh.exec('git status', {silent:true}).output);
+    grunt.log.writeln('\n' + sh.exec('git status', {silent:true}).output);
   
   });
 };
